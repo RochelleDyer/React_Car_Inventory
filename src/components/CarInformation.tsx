@@ -5,32 +5,34 @@ import Input from './Input'
 import { useForm } from 'react-hook-form'
 import { server_calls } from '../api/server'
 import { useDispatch, useStore } from 'react-redux'
-import {chooseMake, chooseModel, chooseYear} from '../redux/slices/RootSlice'
+import {chooseMake, chooseModel, chooseYear, chooseDescription} from '../redux/slices/RootSlice'
 
 interface CarInfoProps {
-    id?: string []
+    id?: string [];
 }
 
 const CarInfo = (props: CarInfoProps) => {
     const {register, handleSubmit } = useForm ({})
-    const dispatch = useDispatch();
-    const store = useStore();
+    const dispatch = useDispatch()
+    const store = useStore()
 
     const onSubmit = (data: any, event: any) => {
         console.log (`ID: ${props.id}`);
         if (props.id && props.id.length > 0) {
             server_calls.update (props.id[0], data)
-            console.log (`Updated: ${data} ${props.id}`)
-            setTimeout(() => {window.location.reload()}, 1000)
+            console.log (`Updated: ${data.make} ${props.id}`)
+            setTimeout(() => {window.location.reload()}, 1000000)
             event.target.reset()
         }else{
+
             dispatch(chooseMake(data.make));
             dispatch(chooseModel(data.model));
-            dispatch(chooseYear(data.year));            
+            dispatch(chooseYear(data.year));
+            dispatch(chooseDescription(data.description));            
             
 
             server_calls.create (store.getState())
-            setTimeout( () => {window.location.reload()}, 1000)
+            setTimeout( () => {window.location.reload()}, 1000000)
         }
     }
 
@@ -48,6 +50,10 @@ const CarInfo = (props: CarInfoProps) => {
             <div>
                 <label htmlFor="year">Year</label>
                 <Input {...register('year')} name='year' placeholder='Year' />
+            </div>
+            <div>
+                <label htmlFor="description">Car Description</label>
+                <Input {...register('description')} name='description' placeholder='Car Description' />
             </div>
             
             

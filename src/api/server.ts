@@ -7,8 +7,10 @@ export const server_calls = {
             method: 'GET',
             headers: {
                 "Content-type": "application/json",
-                'x-access-token': `Bearer ${token}`,
-                'Access-Control-Allow-Origin':'*'},
+                'Access-Control-Allow-Origin':'*',
+                'x-access-token': `Bearer ${token}` ,
+                
+            },
             
          });
         
@@ -26,9 +28,11 @@ export const server_calls = {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin':'*',
                 'x-access-token': `Bearer ${token}`,
-                'Access-Control-Allow-Origin':'*'
+                                
             },
+
             body: JSON.stringify(data)
         });
 

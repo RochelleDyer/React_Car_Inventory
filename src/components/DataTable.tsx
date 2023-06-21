@@ -1,22 +1,23 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import Button from './Button'
 import Modal from './Modal'
 import { server_calls } from '../api/server';
-import {DataGrid, GridColDef} from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useGetData } from '../custom-hooks/FetchData';
 
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 90, hide: true},
     { field: 'make', headerName: 'Make', flex: 1},
     { field: 'model', headerName: 'Model', flex: 1},
-    { field: 'year', headerName: 'Year', flex: 1},    
+    { field: 'year', headerName: 'Year', flex: 1},
+    { field: 'description', headerName: 'Car Description', flex:1}    
     
 ]
 
 function DataTable() {
-    const [open, setOpen] = useState(false);
-    const {carData, getData} = useGetData();
-    const [selectionModel, setSelectionModel] = useState <string[]>([])
+    const [ open, setOpen ] = useState(false);
+    const { carData, getData } = useGetData();
+    const [ selectionModel, setSelectionModel ] = useState <string[]>([])
 
     const handleOpen = () => {
         setOpen (true)
@@ -60,7 +61,7 @@ function DataTable() {
                 <DataGrid rows={carData} columns= {columns} rowsPerPageOptions={[5]}
                 checkboxSelection={true} 
                 onSelectionModelChange= { (item:any) => {
-                    setSelectionModel (item)
+                    setSelectionModel(item)
                 }}
                 />
 
